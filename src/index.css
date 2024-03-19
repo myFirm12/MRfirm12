@@ -1,0 +1,323 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  border: 0;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+
+/* >>>>>>>>>>>>> Home Section for css */
+.homeBody {
+  width: 100%;
+  height: 700vh;
+  /* background: peru; */
+}
+.homeGrid {
+  display: grid;
+  /* grid-template-columns: 100%; */
+  grid-template-rows: 12% 35% 25% 28%;
+  grid-template-areas: "gridOne" "gridtwo" "gridthree" "gridfour";
+  height: 700vh;
+  width: 100%;
+}
+.home_FirstGrid {
+  grid-area: gridOne;
+  /* background: red; */
+}
+.home_SecondGrid {
+  grid-area: gridtwo;
+  /* background: green; */
+}
+.home_ThirdGrid {
+  grid-area: gridthree;
+  /* background: peru; */
+}
+.home_FourthGrid {
+  grid-area: gridfour;
+  /* background: green; */
+}
+.pointer:hover {
+  color: white;
+  background: rgba(0, 0, 255, 0.3);
+  /* text-decoration: dotted; */
+  /* display: ; */
+  visibility: visible;
+  /* display: block; */
+}
+.pointer {
+  /* visibility: hidden; */
+  opacity: 0;
+}
+.pointer:hover {
+  opacity: 1;
+  visibility: visible;
+  cursor: pointer;
+}
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>  Get A Quote */
+.getAQuoteBody {
+  width: 100%;
+  height: 430vh;
+  /* background: rgb(37, 85, 169); */
+}
+.getAQuoteGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 8% 77% 15%;
+  grid-template-areas: "gridOne" "gridtwo" "gridthree";
+  height: 430vh;
+}
+.getAQuote_FirstGrid {
+  grid-area: gridOne;
+  /* background: red; */
+}
+.getAQuote_SecondGrid {
+  grid-area: gridtwo;
+  /* background: green; */
+}
+.getAQuote_ThirdGrid {
+  grid-area: gridthree;
+  background: peru;
+}
+
+/* =============== Contact Css  */
+.contactBody {
+  width: 100%;
+  height: 350vh;
+  /* background: peru; */
+}
+.contactGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 17% 61% 22%;
+  grid-template-areas: "gridOne" "gridtwo" "gridthree";
+  height: 350vh;
+}
+.contact_FirstGrid {
+  grid-area: gridOne;
+  /* background: red; */
+}
+.contact_SecondGrid {
+  grid-area: gridtwo;
+  background: green;
+}
+.contact_ThirdGrid {
+  grid-area: gridthree;
+  background: peru;
+}
+
+/* ============================  About Us  */
+.aboutUsBody {
+  width: 100%;
+  height: 500vh;
+  /* background: peru; */
+}
+.aboutUsGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 25% 27% 33% 15%;
+  grid-template-areas: "gridOne" "gridtwo" "gridthree" "gridfour";
+  height: 500vh;
+}
+.aboutUs_FirstGrid {
+  grid-area: gridOne;
+  /* background: red; */
+}
+.aboutUs_SecondGrid {
+  grid-area: gridtwo;
+  background: rgb(174, 168, 153);
+}
+.aboutUs_ThirdGrid {
+  grid-area: gridthree;
+  background: rgb(179, 124, 69);
+}
+.aboutUs_FourthGrid {
+  grid-area: gridfour;
+  /* background: green; */
+}
+
+/* ================= latest_News   */
+.latestNewsBody {
+  width: 100%;
+  height: 220vh;
+  /* background: peru; */
+}
+.latestNewsGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 70% 30%;
+  grid-template-areas: "gridOne" "gridtwo";
+  height: 220vh;
+}
+.latestNews_FirstGrid {
+  grid-area: gridOne;
+  background: rgb(20, 19, 19);
+}
+.latestNews_SecondGrid {
+  grid-area: gridtwo;
+  background: green;
+}
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>. Conveyancing Solicitors */
+.SolicitorsBody {
+  width: 100%;
+  height: 380vh;
+  /* background: rgb(213, 207, 207); */
+}
+.SolicitorsGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 82% 18%;
+  grid-template-areas: "gridOne" "gridtwo";
+  height: 380vh;
+}
+.Solicitors_FirstGrid {
+  grid-area: gridOne;
+  /* background: red; */
+}
+.Solicitors_SecondGrid {
+  grid-area: gridtwo;
+  background: green;
+  /* list-style: circle; */
+}
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Immigration */
+.ImmigrationBody {
+  width: 100%;
+  height: 500vh;
+  /* background: rgb(23, 23, 118); */
+}
+.ImmigrationGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 84% 16%;
+  grid-template-areas: "gridOne" "gridtwo";
+  height: 500vh;
+}
+.Immigration_FirstGrid {
+  grid-area: gridOne;
+  /* background: red; */
+}
+.Immigration_SecondGrid {
+  grid-area: gridtwo;
+  background: green;
+  /* color: rgb(219, 217, 217); */
+}
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Family Law */
+.familyLawBody {
+  width: 100%;
+  height: 500vh;
+  /* background: peru; */
+}
+.familyLawGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 85% 15%;
+  grid-template-areas: "gridOne" "gridtwo";
+  height: 500vh;
+}
+.familyLaw_FirstGrid {
+  grid-area: gridOne;
+  /* background: red; */
+}
+.familyLaw_SecondGrid {
+  grid-area: gridtwo;
+  background: green;
+  /* list-style: circle; */
+}
+.drawerMenu {
+  color: white;
+  /* background: rgb(28, 28, 143); */
+}
+.convey {
+  background: rgb(28, 28, 143);
+  color: white;
+}
+.convey:hover {
+  background: white;
+  color: black;
+  border: 2px solid black;
+}
+.fees {
+  border: 1px solid white;
+  color: white;
+  background: rgb(28, 28, 143);
+}
+.fees:hover {
+  background: white;
+  color: rgb(28, 28, 143);
+}
+/* =================== How about Fees */
+.feeBody {
+  width: 100%;
+  height: 1600vh;
+  /* background: rgb(23, 23, 118); */
+}
+.feeGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 95% 5%;
+  grid-template-areas: "gridOne" "gridtwo";
+  height: 1600vh;
+}
+.fee_FirstGrid {
+  grid-area: gridOne;
+  /* background: red; */
+}
+.fee_SecondGrid {
+  grid-area: gridtwo;
+  background: green;
+  /* color: rgb(219, 217, 217); */
+}
+/* =============================== Read */
+.read1Body {
+  width: 100%;
+  height: 380vh;
+  /* background: rgb(23, 23, 118); */
+}
+.read1Grid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 82% 18%;
+  grid-template-areas: "gridOne" "gridtwo";
+  height: 380vh;
+}
+.read1_FirstGrid {
+  grid-area: gridOne;
+  /* background: rgb(175, 180, 101); */
+}
+.read1_SecondGrid {
+  grid-area: gridtwo;
+  background: green;
+  /* color: rgb(219, 217, 217); */
+}
+/* =============================== Read */
+.read4Body {
+  width: 100%;
+  height: 480vh;
+  /* background: rgb(23, 23, 118); */
+}
+.read4Grid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 84% 16%;
+  grid-template-areas: "gridOne" "gridtwo";
+  height: 480vh;
+}
+.read4_FirstGrid {
+  grid-area: gridOne;
+  /* background: rgb(175, 180, 101); */
+}
+.read4_SecondGrid {
+  grid-area: gridtwo;
+  background: green;
+  /* color: rgb(219, 217, 217); */
+}
