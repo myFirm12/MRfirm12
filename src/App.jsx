@@ -24,10 +24,14 @@ import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import TextMessage from "./Screens/TextMessage";
 import NestedRoutesWithMessageIcon from "./Screens/NestedRoutesWithMessageIcon";
+import AdminTextMessage from "./Screens/AdminTextMessages";
+import notificationSound from "../src/assets/audio/notificationSound.mp3";
 
 function App() {
   return (
     <>
+      <audio id="mySound" src={notificationSound} preload="auto"></audio>
+
       <Routes>
         <Route element={<NestedRoutesWithMessageIcon />}>
           <Route path="/" element={<TextHome />} />
@@ -38,6 +42,8 @@ function App() {
         </Route>
 
         <Route path="/messages" element={<TextMessage />} />
+
+        <Route path="/admin-messages" element={<AdminTextMessage />} />
 
         <Route
           path="/Conveyancing_Solicitors"

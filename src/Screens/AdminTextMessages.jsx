@@ -8,7 +8,7 @@ import {
   Send,
   Twitter,
 } from "@mui/icons-material";
-import { Avatar, Card, IconButton, TextField } from "@mui/material";
+import { Avatar, Card, Chip, IconButton, TextField } from "@mui/material";
 import ChatCard from "../Components/Cards/ChatCard";
 import { uuidv4 } from "@firebase/util";
 import { db } from "../fireBase/FireBase";
@@ -28,29 +28,29 @@ import moment from "moment";
 import { formatDistanceToNow } from "date-fns";
 
 //
-function TextMessage() {
+function AdminTextMessage() {
   const [messages, setMessages] = useState("");
   const [userID, setuserID] = useState("");
   const [messageArray, setMessageArray] = useState([]);
+  const [usersArray, setUsersArray] = useState([]);
+  const [visitorId, setVisitorID] = useState("");
 
-  console.log(messages);
+  //   useEffect(() => {
+  //     async function getVisitorId() {
+  //       try {
+  //         const fpPromise = FingerprintJS.load(); // Load the FingerprintJS agent
+  //         const fp = await fpPromise;
+  //         const result = await fp.get();
+  //         console.log("Visitor ID:", result.visitorId);
+  //         // alert(result.visitorId, "   visitorId");
+  //         setuserID(result.visitorId);
+  //       } catch (error) {
+  //         console.error("Error getting visitor ID:", error);
+  //       }
+  //     }
 
-  useEffect(() => {
-    async function getVisitorId() {
-      try {
-        const fpPromise = FingerprintJS.load(); // Load the FingerprintJS agent
-        const fp = await fpPromise;
-        const result = await fp.get();
-        console.log("Visitor ID:", result.visitorId);
-        // alert(result.visitorId, "   visitorId");
-        setuserID(result.visitorId);
-      } catch (error) {
-        console.error("Error getting visitor ID:", error);
-      }
-    }
-
-    getVisitorId();
-  }, []);
+  //     getVisitorId();
+  //   }, []);
 
   // Initialize an agent at application startup.
   //
@@ -73,15 +73,15 @@ function TextMessage() {
 
         const userToSelfMessageRef = doc(
           db,
-          `Chats/${userID}/Contacts/Messages/Admin`,
+          `Chats/${visitorId}/Contacts/Messages/Admin`,
           uuid
         );
         await setDoc(userToSelfMessageRef, {
           messageId: uuid,
-          senderId: userID,
-          recepientId: "Admin",
+          senderId: "Admin",
+          recepientId: visitorId,
           // senderName: `${userLoginDetailsObject?.firstName} ${userLoginDetailsObject?.surname} `,
-          recepientName: "Admin",
+          recepientName: `visitor ${visitorId}`,
           message: messages,
           dateSent: dateSend,
         });
@@ -89,15 +89,15 @@ function TextMessage() {
         // Message to other
         const userToOthersMessageRef = doc(
           db,
-          `Chats/Admin/Contacts/Messages/${userID}`,
+          `Chats/Admin/Contacts/Messages/${visitorId}`,
           uuid
         );
         await setDoc(userToOthersMessageRef, {
           messageId: uuid,
-          senderId: userID,
-          recepientId: "Admin",
+          senderId: "Admin",
+          recepientId: visitorId,
           // senderName: `${userLoginDetailsObject?.firstName} ${userLoginDetailsObject?.surname} `,
-          recepientName: "Admin",
+          recepientName: `visitor ${visitorId}`,
           message: messages,
           dateSent: dateSend,
         });
@@ -143,7 +143,7 @@ function TextMessage() {
 
     const userToSelfMessageRef = collection(
       db,
-      `Chats/${userID === "" ? "empty" : userID}/Contacts/Messages/Admin`
+      `Chats/${visitorId === "" ? "empty" : visitorId}/Contacts/Messages/Admin`
     );
 
     const q = query(userToSelfMessageRef);
@@ -158,13 +158,11 @@ function TextMessage() {
 
       console.log(items, "allmessages");
       setMessageArray(items.sort(compareDates));
-      // const audio = document.getElementById("mySound");
-      // audio.play();
     });
     return () => {
       alldata();
     };
-  }, [userID]);
+  }, [visitorId]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -179,17 +177,11 @@ function TextMessage() {
 
       console.log(docSnap.data(), "console updated 1");
 
-      if (engagedUsersArray.includes(userID) && userID.trim() === "") {
-        ("");
-      } else {
-        await updateDoc(updateUsersWhoHaveInitiatedText, {
-          usersEngaged: arrayUnion(userID),
-        });
-      }
+      setUsersArray(engagedUsersArray);
     };
 
     fetchData();
-  }, [userID]);
+  }, [visitorId]);
 
   useEffect(() => {
     const getAllUsersId = collection(db, `Chats`);
@@ -213,6 +205,10 @@ function TextMessage() {
     };
   }, []);
 
+  const handleClick = (visitorId) => {
+    setVisitorID(visitorId);
+  };
+
   return (
     <div
       className="md:w-[100%] md:h-[100vh] md:flex md:flex-row    sm:w-[100%] sm:h-[100vh] sm:flex sm:flex-row"
@@ -225,6 +221,24 @@ function TextMessage() {
         style={{ background: "rgb(230, 225, 225)" }}
       >
         <div className="md:flex md:flex-col md:gap-[1em] md:justify-center md:items-center   sm:flex sm:flex-col sm:gap-[1em] sm:justify-center sm:items-center">
+          {usersArray.map((data, key) => {
+            return (
+              <div key={key}>
+                <Chip
+                  label={`Visitor ${key + 1}`}
+                  variant="outlined"
+                  color="primary"
+                  style={{ width: "10vw", height: "5vh" }}
+                  onClick={() => {
+                    handleClick(data);
+                  }}
+                  clickable
+                />
+                {/* &nbsp; &nbsp;&nbsp;&nbsp; {data} */}
+              </div>
+            );
+          })}
+
           <img src={logo} className="md:w-[40%] sm:w-[40%]" alt="" />
 
           <ul
@@ -297,7 +311,7 @@ function TextMessage() {
 
               // Assuming userLoginDetailsObject contains the accountId of the logged-in user
 
-              if (senderId === "Admin") {
+              if (senderId !== "Admin") {
                 return (
                   <OtherUserMessage
                     key={index}
@@ -322,11 +336,12 @@ function TextMessage() {
           // style={{ background: "pink" }}
         >
           <div
-            className="md:basis-[90%] md:flex md:justify-center md:items-center  sm:basis-[80%] sm:flex sm:justify-center sm:items-center"
+            className="md:basis-[90%] md:flex md:justify-center md:items-center sm:gap-[1vw]  sm:basis-[80%] sm:flex sm:justify-center sm:items-center"
             // style={{ background: "cyan" }}
           >
             <TextField
-              className="md:w-[55vw] sm:w-[75vw]"
+              className="md:w-[55vw] sm:w-[75vw] "
+              style={{ marginLeft: "1vw" }}
               placeholder="Ask us anything"
               value={messages}
               onChange={(e) => {
@@ -348,7 +363,7 @@ function TextMessage() {
   );
 }
 
-export default TextMessage;
+export default AdminTextMessage;
 
 const OtherUserMessage = ({ message, dateSent, profileImage }) => {
   const parsedTimestamp = new Date(dateSent);
@@ -374,9 +389,6 @@ const OtherUserMessage = ({ message, dateSent, profileImage }) => {
           gap: ".1vw",
         }}
       >
-        <Avatar sx={{ width: 50, height: 50 }}>
-          <HeadsetMic color="primary" />
-        </Avatar>
         <div style={{ flex: "1", padding: ".5vw" }}>
           <span
             style={{
@@ -430,9 +442,9 @@ const LoginUserMessage = ({ message, dateSent, profileImage }) => {
           gap: ".1vw",
         }}
       >
-        {/* <div style={{ flex: ".05" }}>
-          <Avatar src={profileImage} sx={{ width: 30, height: 30 }} />
-        </div> */}
+        <Avatar sx={{ width: 50, height: 50 }}>
+          <HeadsetMic color="primary" />
+        </Avatar>
         <div style={{ flex: "1", padding: ".5vw" }}>
           <span
             style={{
